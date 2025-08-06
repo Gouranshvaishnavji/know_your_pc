@@ -3,7 +3,6 @@
 This project is developed as a hands-on application of the concepts covered in the **"Build Your Own AI Agent"** course. The goal is to build an intelligent, inventory-aware AI system that answers natural language queries related to custom PC configurations and components using structured reasoning, real-time data, and AI-agent design principles.
 
 ## Project Objective
-
 To build a single-page AI-driven application that uses a multi-agent architecture to:
 - Interpret user prompts
 - Generate compatible PC builds from available components
@@ -12,7 +11,6 @@ To build a single-page AI-driven application that uses a multi-agent architectur
 - Use structured outputs and real-time inventory validation
 
 ## How Course Concepts Will Be Applied
-
 ### Module 1: Foundations of LLMs
 - Use Gemini API to power the language capabilities.
 - Experiment with prompt structure, temperature, and token limits to optimize generation.
@@ -43,6 +41,5 @@ To build a single-page AI-driven application that uses a multi-agent architectur
   - Prompt simplification
 
 ## Expected Outcome
-
 By the end of the project, this system will demonstrate how AI agents can move beyond static chat interfaces to become interactive, logic-driven assistants capable of solving domain-specific problems using reasoning, retrieval, and tool-use.
 
