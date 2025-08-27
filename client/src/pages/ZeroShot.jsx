@@ -3,6 +3,14 @@ import React, { useState } from 'react';
 const GEMINI_URI = import.meta.env.VITE_GEMINI_URI;
 const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY;
 
+// System prompt: instruct Gemini to act as a PC seller agent
+const SYSTEM_PROMPT = `
+You are an AI agent working as a seller for custom PC builds. 
+Your job is to help customers with questions about PC parts and assembling only. 
+Do not answer questions outside of PC parts or assembly. 
+Always be friendly and try to recommend builds or compatible parts when possible.
+`;
+
 const ZeroShot = () => {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState('');
@@ -13,9 +21,8 @@ const ZeroShot = () => {
     setLoading(true);
     setResponse('');
     try {
-        console.log('GEMINI_URI:', GEMINI_URI);
       const url = `${GEMINI_URI}?key=${GEMINI_KEY}`;
-      console.log('Request URL:', url);
+      // Combine system prompt and user input for zero-shot instruction
       const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -25,7 +32,7 @@ const ZeroShot = () => {
           contents: [
             {
               role: 'user',
-              parts: [{ text: input }],
+              parts: [{ text: SYSTEM_PROMPT + '\n\nCustomer: ' + input }],
             },
           ],
         }),
@@ -50,12 +57,13 @@ const ZeroShot = () => {
   return (
     <div>
       <h2>Zero-Shot Gemini Prompt</h2>
+      {/* This is a zero-shot prompt: only instructions, no examples */}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={input}
           onChange={e => setInput(e.target.value)}
-          placeholder="Ask anything..."
+          placeholder="Ask anything about PC parts or assembly..."
           style={{ width: '300px' }}
         />
         <button type="submit" disabled={loading}>
