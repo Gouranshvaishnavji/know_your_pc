@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import ZeroShot from './pages/ZeroShot'
+import AgenticWrapper from './pages/AgenticWrapper'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <ZeroShot />
+      <AgenticWrapper />
     </>
   )
 }
