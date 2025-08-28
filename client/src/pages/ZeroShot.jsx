@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const GEMINI_URI = import.meta.env.VITE_GEMINI_URI;
 const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY;
 
+
 // Multi-shot prompt: instructions + multiple examples
 const SYSTEM_PROMPT = `
 You are an AI agent working as a seller for custom PC builds.
@@ -10,7 +11,14 @@ Your job is to help customers with questions about PC parts, assembling, and per
 Do not answer questions outside of PC parts, assembly, or peripherals.
 Always be friendly and try to recommend builds or compatible parts when possible.
 
-Example 1:
+
+// One-shot prompt: instructions + one example
+const SYSTEM_PROMPT = `
+You are an AI agent working as a seller for custom PC builds.
+Your job is to help customers with questions about PC parts and assembling only.
+Do not answer questions outside of PC parts or assembly.
+Always be friendly and try to recommend builds or compatible parts when possible.
+
 Customer: Can you tell me about available CPUs?
 Agent: Sure! Here are the CPUs we currently have in stock:
 - Intel Core i9-13900K: Best for high-end gaming and professional workloads.
@@ -34,6 +42,10 @@ Agent: Here are the motherboards currently available:
 - MSI MAG B650 Tomahawk: Great for AMD Ryzen systems and gaming.
 - Gigabyte B760M DS3H: Good for budget Intel builds.
 If you share your CPU choice, I can recommend the most compatible motherboard!
+
+
+If you tell me your use case, I can recommend the best CPU for you!
+
 `;
 
 const ZeroShot = () => {
@@ -47,7 +59,6 @@ const ZeroShot = () => {
     setResponse('');
     try {
       const url = `${GEMINI_URI}?key=${GEMINI_KEY}`;
-      // Combine multi-shot prompt and user input
       const res = await fetch(url, {
         method: 'POST',
         headers: {
