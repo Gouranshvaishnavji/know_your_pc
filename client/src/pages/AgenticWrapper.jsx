@@ -63,7 +63,6 @@ const AgenticWrapper = () => {
     setResponse('');
     try {
       const url = `${GEMINI_URI}?key=${GEMINI_KEY}`;
-      // Combine multi-shot prompt and user input
       const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -76,6 +75,7 @@ const AgenticWrapper = () => {
               parts: [{ text: SYSTEM_PROMPT + '\n\nCustomer: ' + input }],
             },
           ],
+          temperature: 0.7, 
         }),
       });
 
@@ -89,7 +89,6 @@ const AgenticWrapper = () => {
           JSON.stringify(data);
         setResponse(text);
 
-        // Log token usage if available
         if (data.usageMetadata) {
           const promptTokens = data.usageMetadata.promptTokenCount;
           const responseTokens = data.usageMetadata.candidatesTokenCount;
