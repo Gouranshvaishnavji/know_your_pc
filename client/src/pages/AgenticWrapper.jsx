@@ -88,6 +88,18 @@ const AgenticWrapper = () => {
           data?.candidates?.[0]?.content?.parts?.[0]?.text ||
           JSON.stringify(data);
         setResponse(text);
+
+        // Log token usage if available
+        if (data.usageMetadata) {
+          const promptTokens = data.usageMetadata.promptTokenCount;
+          const responseTokens = data.usageMetadata.candidatesTokenCount;
+          const totalTokens = promptTokens + responseTokens;
+          console.log(
+            `Tokens used - Prompt: ${promptTokens}, Response: ${responseTokens}, Total: ${totalTokens}`
+          );
+        } else {
+          console.log('Token usage metadata not available in response.');
+        }
       }
     } catch (err) {
       setResponse('Error: ' + err.message);
